@@ -14,7 +14,9 @@ class PassFinder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: {},
+      latitude: undefined,
+      longitude: undefined,
+      altitude: undefined,
       nextPasses: [],
       permissionGranted: false,
       positionRequested: false,
@@ -30,18 +32,20 @@ class PassFinder extends Component {
     // TODO: Implement
   };
 
+  // TODO: Factor out everything except setting state
   updatePosition = async () => {
 
     // Set getCurrentPosition options
     const options = {
       enableHighAccuracy: true,
-      timeout: 5000,
+      timeout: 4000,
       maximumAge: 0
     };
 
     // Access getCurrentPosition API
     let position;
     let tryAgain = true;
+
     while (tryAgain) {
       try {
         position = await getCurrentPosition(options);
@@ -70,14 +74,16 @@ class PassFinder extends Component {
     }
 
     // Extract location data and assign it to component state
-    const { latitude, longitude, altitude } = position.coords;
     this.setState({
-      position: { latitude, longitude, altitude },
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      altitude: position.coords.altitude,
       positionLoaded: true,
     });
 
   }
 
+  // TODO: Factor out everything except setting state
   updatePasses = async () => {
     let passesHeaders = new Headers();
     // Headers required for the proxy
@@ -87,9 +93,9 @@ class PassFinder extends Component {
     const passesRequest = new Request(
       // Make request through a proxy
       `https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-pass.json?lat=${
-        this.state.position.latitude
+        this.state.latitude
       }&lon=${
-        this.state.position.longitude
+        this.state.longitude
       }`,
       { headers: passesHeaders },
     );
@@ -137,8 +143,8 @@ class PassFinder extends Component {
       return (
         <PassesDisplay
           positionLoaded={this.state.positionLoaded}
-          latitude={this.state.position.latitude}
-          longitude={this.state.position.longitude}
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
           passesLoaded={this.state.passesLoaded}
           nextPass={this.state.nextPasses[0]}
         />
