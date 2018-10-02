@@ -1,17 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import logo from './logo.svg';
-import './App.css';
 
-import PassFinder from "./PassFinder"
+import Layout from "./Layout.js"
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <PassFinder />
-      </div>
-    );
-  }
-}
+const App = () => <Layout />
 
 export default App;
