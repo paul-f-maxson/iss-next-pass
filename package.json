@@ -1,8 +1,7 @@
 {
-  "name": "iss_next_pass",
+  "name": "iss_next_visible_pass",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://portfolio-pfmaxson.herokuapp.com/catalog/descriptions/iss_next_pass"
   "dependencies": {
     "moment": "^2.22.2",
     "react": "^16.4.2",
