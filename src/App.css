@@ -1,47 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
-body {
-  background-color: #343d46;
-}
-
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-.App-container {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  align-items: center;
   text-align: center;
   background-color: #a078a0;
   border-radius: 0.9em;
-  margin: 0 auto;
-  margin-top: 100px;
   padding: 1em;
+  grid-area: 2 / 2 / 3 / 3;
 }
 
-button {
+.App button {
   background-color: #7997A0;
   padding: 0.5em 1em 0.5em 1em;
   border-radius: 0.75em;
@@ -50,13 +17,8 @@ button {
   font-size: 1em;
 }
 
-p {
+.App p {
   font-family: "Ubuntu";
   font-size: 19px;
   color: #2b2b2b;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

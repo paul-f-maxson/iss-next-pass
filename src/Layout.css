@@ -1,0 +1,19 @@
+body {
+  background-color: #343d46;
+}
+
+.App-container {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: 3fr 4fr 5fr;
+  /* grid-template-areas:
+    "a a a"
+    "b x b"
+    "c c c"; */
+}
+
+@media (max-width: 576px) {
+  .App-container {
+    grid-template-columns: 1fr 4fr 1fr;
+  }
+}

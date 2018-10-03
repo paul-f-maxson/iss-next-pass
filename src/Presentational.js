@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 
-
 // TODO: Style this button
 export function GeolocationRequestButton(props) {
   return (
