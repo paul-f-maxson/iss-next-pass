@@ -1,11 +1,14 @@
 import React from 'react';
+import "./Layout.css"
 import './App.css';
 
 import PassFinder from "./PassFinder"
 
 const Layout = () => (
   <div className="App-container">
-    <PassFinder />
+    <div className="App">
+      <PassFinder />
+    </div>
   </div>
 )
 
