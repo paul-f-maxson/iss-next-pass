@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 // TODO: Style this button
-export function GeolocationRequestButton(props) {
+export function GeolocationPermissionRequest(props) {
   return (
     <div>
       <p>We'd like to get your location information so we can find the next pass the ISS will make over your position.
@@ -20,7 +20,8 @@ export default function Presentational(props) {
 
   const positionDisplay = ( props.positionLoaded
     ? (
-      <p>Your location: latitude {props.latitude},
+      <p>
+        Your location: latitude {props.latitude},
         longitude {props.longitude}
       </p>
     ) : <p>Loading position data...</p>
