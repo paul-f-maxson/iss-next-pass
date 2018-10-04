@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { updatePasses, updatePosition } from "./APIHandlers.js"
-import Presentational, { GeolocationRequestButton } from "./Presentational.js"
+import Presentational, { GeolocationPermissionRequest } from "./Presentational.js"
 
 export default class PassFinder extends Component {
   constructor(props) {
@@ -11,6 +11,8 @@ export default class PassFinder extends Component {
       longitude: undefined,
       altitude: undefined,
       nextPasses: [],
+      // TODO: Remove these flags, they aren't strictly needed
+      geolocationFailure: false,
       positionRequested: false,
       positionLoaded: false,
       passesLoaded: false,
@@ -28,7 +30,13 @@ export default class PassFinder extends Component {
   update = async () => {
 
     // Get user position
-    const position = await updatePosition();
+    let position
+    try {
+      position = await updatePosition();
+    } catch (e) {
+      this.setState({geolocationFailure: true});
+      throw e;
+    }
 
     // Extract location data and assign it to component state
     this.setState({
@@ -50,6 +58,7 @@ export default class PassFinder extends Component {
       passesLoaded: true,
     });
 
+    return;
   }
 
   userRequestOwnGeoposition = () => {
@@ -60,11 +69,17 @@ export default class PassFinder extends Component {
   render () {
     if (!this.state.positionRequested) {
       return (
-        <GeolocationRequestButton
+        <GeolocationPermissionRequest
           requestPosition={this.userRequestOwnGeoposition}
         />
       );
 
+    } else if (this.state.geolocationFailure) {
+      return (
+        <p className="sorry">
+          We cannot access your geolocation, and without that information this app can't do its thing. Sorry!
+        </p>
+      )
     } else {
       return (
         <Presentational

@@ -1,3 +1,5 @@
+// import Log from "./Log.js";
+
 const getCurrentPosition = async (options = {}) => (
   new Promise( (resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -23,27 +25,29 @@ export const updatePosition = async () => {
       break; // Leave while if no error
     } catch (e) {
 
-      if (e.__proto__.constructor.name === "PositionError") {
+      switch (e.code) {
 
-        if (e.code === 1 // PERMISSION_DENIED
-          && !window.confirm( // 'Cancel' --> false
-            "We need your permission to access your location information! Try again?"
-          )
-        ) break; // Leave while
+        case e.PERMISSION_DENIED:
+          if (window.confirm( // 'Cancel' --> false
+            "We need your permission to access your location! Please update the settings of your computer and/or browser to allow access to your location. \n\nTry again?"
+          )) break;
+          else throw e;
 
-        else if (e.code === 2 // POSITION_UNAVAILABLE
-          && !window.confirm( // 'Cancel' --> false
-            "The acquisition of your geolocation failed because at least one source of position on your machine machine didn't work! Try again?"
-          )
-        ) break; // Leave while
+        case e.POSITION_UNAVAILABLE:
+          if (window.confirm( // 'Cancel' --> false
+            "The acquisition of your geolocation failed because at least one source of position on your machine machine didn't work! \n\nTry again?"
+          )) break;
+          else throw e;
 
-        else if (e.code === 3 // TIMEOUT
-          && !window.confirm( // 'Cancel' --> false
-            "We're having trouble finding you! Try again?"
-          )
-        ) break; // Leave while
+        case e.TIMEOUT:
+          if (window.confirm( // 'Cancel' --> false
+            "We're having trouble finding you! \n\nTry again?"
+          )) break;
+          else throw e;
 
-      } else throw e; // Leave while
+        default:
+          throw e;
+      }
     }
   }
   return position;
