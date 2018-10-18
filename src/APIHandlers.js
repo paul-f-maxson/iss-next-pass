@@ -1,9 +1,11 @@
 // import Log from "./Log.js";
 
-const getCurrentPosition = async (options = {}) => (
+const positionGetter = ( options = {} ) => (
+
   new Promise( (resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, options);
   })
+
 );
 
 export const updatePosition = async () => {
@@ -20,8 +22,10 @@ export const updatePosition = async () => {
 
   while (true) {
 
+    const getCurrentPosition = positionGetter(options);
+
     try {
-      position = await getCurrentPosition(options);
+      position = await getCurrentPosition;
       break; // Leave while if no error
     } catch (e) {
 

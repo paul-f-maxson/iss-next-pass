@@ -8,5 +8,5 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.setItem('debug', 'iss_next_pass:*');
 }
 
-ReactDOM.render(<App className="App"/>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
