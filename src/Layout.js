@@ -10,6 +10,6 @@ const Layout = () => (
       <PassFinder />
     </div>
   </div>
-)
+);
 
 export default Layout;
